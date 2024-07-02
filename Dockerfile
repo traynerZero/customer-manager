@@ -4,7 +4,7 @@
 FROM php:8.1-fpm
 
 # Set the working directory
-WORKDIR /var/www/html
+WORKDIR C:\Users\Zero\Desktop\Work\customer-manager
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -36,10 +36,13 @@ RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy existing application directory contents into the container
-COPY . .
+# Copy existing application directory contents
+COPY . C:\Users\Zero\Desktop\Work\customer-manager
 
-# Change current user to www-data
+# Copy existing application directory permissions
+COPY --chown=www-data:www-data . /var/www
+
+# Change current user to www
 USER www-data
 
 # Expose port 9000 and start php-fpm server

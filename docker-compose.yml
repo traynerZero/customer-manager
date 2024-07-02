@@ -8,12 +8,23 @@ services:
         container_name: customer-manager
         restart: unless-stopped
         working_dir: /var/www/html # Adjusted to match Dockerfile WORKDIR
+        environment:
+            - DB_HOST=mysql
+            - DB_PORT=3306
+            - DB_DATABASE=customermanager
+            - DB_USERNAME=customer
+            - DB_PASSWORD=admin
         volumes:
             - C:/Users/Zero/Desktop/Work/customer-manager:/var/www/html
             - C:/Users/Zero/Desktop/Work/customer-manager/vendor:/var/www/html/vendor
             - C:/Users/Zero/Desktop/Work/customer-manager/node_modules:/var/www/html/node_modules
         networks:
             - customer-manager
+        healthcheck:
+            test: ["CMD-SHELL", "php artisan migrate:status || exit 1"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
 
     web:
         build:

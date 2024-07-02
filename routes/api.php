@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => 'apiauth'], function () {
+// Route::group(['middleware' => 'apiauth'], function () {
     
-    Route::apiResource('customers',CustomerController::class);
+Route::apiResource('customers',CustomerController::class);
 
-});
+// });
