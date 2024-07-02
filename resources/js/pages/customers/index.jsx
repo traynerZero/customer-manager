@@ -1,5 +1,6 @@
-import { Component } from "react";
+import { Component, React } from "react";
 import axios from "axios";
+import CustomerModal from "../../components/customer/add";
 
 class CustomerIndex extends Component {
     constructor(props) {
@@ -7,6 +8,7 @@ class CustomerIndex extends Component {
         this.state = {
             customers: [],
             isLoading: true,
+            isModalOpen: false,
         };
     }
 
@@ -29,6 +31,19 @@ class CustomerIndex extends Component {
     componentDidMount() {
         this.fetchCustomers();
     }
+
+    toggleModal = () => {
+        this.setState((prevState) => ({
+            isModalOpen: !prevState.isModalOpen,
+        }));
+    };
+
+    closeModal = () => {
+        this.setState(() => ({
+            isModalOpen: false,
+        }));
+    };
+
     renderCustomers() {
         return this.state.customers.map((customer) => (
             <tr key={customer.id}>
@@ -131,6 +146,7 @@ class CustomerIndex extends Component {
                     <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                         <button
                             type="button"
+                            onClick={() => this.toggleModal()}
                             className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
                             Add customer
@@ -194,6 +210,12 @@ class CustomerIndex extends Component {
                                         </tbody>
                                     )}
                                 </table>
+
+                                <CustomerModal
+                                    isOpen={this.state.isModalOpen}
+                                    onClose={() => this.closeModal()}
+                                />
+
                                 {!this.state.isLoading ? (
                                     <div></div>
                                 ) : (
