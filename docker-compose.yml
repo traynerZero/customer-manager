@@ -1,0 +1,55 @@
+# docker-compose.yml
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: customer-manager
+        container_name: customer-manager
+        restart: unless-stopped
+        working_dir: /var/www/html # Adjusted to match Dockerfile WORKDIR
+        volumes:
+            - C:/Users/Zero/Desktop/Work/customer-manager:/var/www/html
+            - C:/Users/Zero/Desktop/Work/customer-manager/vendor:/var/www/html/vendor
+            - C:/Users/Zero/Desktop/Work/customer-manager/node_modules:/var/www/html/node_modules
+        networks:
+            - customer-manager
+
+    web:
+        build:
+            context: .
+            dockerfile: ./nginx/Dockerfile
+        image: nginx-server
+        container_name: nginx-server
+        restart: unless-stopped
+        ports:
+            - "8000:80"
+        volumes:
+            - .:/var/www/html # Ensure this matches your application structure
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+        depends_on:
+            - app
+        networks:
+            - customer-manager
+
+    mysql:
+        image: mysql:5.7
+        container_name: mysql
+        restart: unless-stopped
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: customermanager
+            MYSQL_USER: customer
+            MYSQL_PASSWORD: admin
+        volumes:
+            - mysql_data:/var/lib/mysql
+        networks:
+            - customer-manager
+
+networks:
+    customer-manager:
+
+volumes:
+    mysql_data:
