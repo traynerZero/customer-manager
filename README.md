@@ -21,8 +21,3 @@ Ensure you have Node.js and Yarn installed. If `yarn dev` does not automatically
 -   **Frontend:** React.js, Axios, Tailwind CSS
 -   **Backend:** Laravel, MySQL
 -   **Development Tools:** Docker, Yarn (or npm), Git
-
-## Project Structure
-
--   `/api`: Laravel backend API endpoints for CRUD operations.
--   `/client`: React.js frontend for managing customer data.
