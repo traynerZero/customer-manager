@@ -1,6 +1,6 @@
 import { Component, React } from "react";
 import axios from "axios";
-import CustomerModal from "../../components/customer/add";
+import CustomerModal from "../../components/customer/modal";
 
 class CustomerIndex extends Component {
     constructor(props) {
@@ -9,6 +9,7 @@ class CustomerIndex extends Component {
             customers: [],
             isLoading: true,
             isModalOpen: false,
+            idSelected: null,
         };
     }
 
@@ -21,7 +22,6 @@ class CustomerIndex extends Component {
                 },
             })
             .then((response) => {
-                console.log(response.data);
                 this.setState({ customers: response.data, isLoading: false });
             })
             .catch((error) => {
@@ -35,6 +35,14 @@ class CustomerIndex extends Component {
     toggleModal = () => {
         this.setState((prevState) => ({
             isModalOpen: !prevState.isModalOpen,
+            idSelected: null,
+        }));
+    };
+
+    toggleUpdateModal = (id) => {
+        this.setState((prevState) => ({
+            isModalOpen: !prevState.isModalOpen,
+            idSelected: id,
         }));
     };
 
@@ -61,8 +69,8 @@ class CustomerIndex extends Component {
                 </td>
                 <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
                     <div>
-                        <a
-                            href="#"
+                        <button
+                            onClick={() => this.toggleUpdateModal(customer.id)}
                             className="inline-flex items-center gap-x-1.5 rounded-md bg-green-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
                         >
                             <svg
@@ -86,7 +94,7 @@ class CustomerIndex extends Component {
                                     strokeLinejoin="round"
                                 />
                             </svg>
-                        </a>
+                        </button>
                     </div>
 
                     <div className="my-1">
@@ -212,6 +220,7 @@ class CustomerIndex extends Component {
                                 </table>
 
                                 <CustomerModal
+                                    idSelected={this.state.idSelected}
                                     isOpen={this.state.isModalOpen}
                                     onClose={() => this.closeModal()}
                                 />

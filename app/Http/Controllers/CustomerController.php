@@ -41,7 +41,9 @@ class CustomerController extends Controller
         return new CustomerResource($customer);
     }
 
-    public function show(Request $request){
+    public function show(Customer $customer){
+
+        return new CustomerResource($customer);
 
     }
 
