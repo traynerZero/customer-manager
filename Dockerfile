@@ -4,7 +4,7 @@
 FROM php:8.1-fpm
 
 # Set the working directory
-WORKDIR C:\Users\Zero\Desktop\Work\customer-manager
+WORKDIR .
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -37,7 +37,7 @@ RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy existing application directory contents
-COPY . C:\Users\Zero\Desktop\Work\customer-manager
+COPY . .
 
 # Copy existing application directory permissions
 COPY --chown=www-data:www-data . /var/www

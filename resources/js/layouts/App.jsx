@@ -5,6 +5,7 @@ function App() {
         <Router>
             <Routes>
                 <Route path="/dashboard" element={<CustomerIndex />} />
+                <Route path="/" element={<CustomerIndex />} />
             </Routes>
         </Router>
     );

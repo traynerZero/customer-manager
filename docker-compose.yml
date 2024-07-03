@@ -15,9 +15,9 @@ services:
             - DB_USERNAME=customer
             - DB_PASSWORD=admin
         volumes:
-            - C:/Users/Zero/Desktop/Work/customer-manager:/var/www/html
-            - C:/Users/Zero/Desktop/Work/customer-manager/vendor:/var/www/html/vendor
-            - C:/Users/Zero/Desktop/Work/customer-manager/node_modules:/var/www/html/node_modules
+            - .:/var/www/html
+            - ./vendor:/var/www/html/vendor
+            - ./node_modules:/var/www/html/node_modules
         networks:
             - customer-manager
         healthcheck:
@@ -25,7 +25,6 @@ services:
             interval: 10s
             timeout: 5s
             retries: 5
-
     web:
         build:
             context: .
