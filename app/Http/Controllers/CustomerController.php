@@ -31,7 +31,7 @@ class CustomerController extends Controller
             return response()->json([
                 'message' => 'Failed to add customer',
                 'status' => 'error',
-                'error' => $e->getMessage(), // Optionally include the error message for debugging
+                'error' => $e->getMessage(),
             ], 500); // 500 Internal Server Error for unexpected errors
         }
     }
@@ -47,7 +47,7 @@ class CustomerController extends Controller
 
     }
 
-    public function remove(Customer $customer){
+    public function destroy(Customer $customer){
         $customer->delete();
         return response()->noContent();
     }

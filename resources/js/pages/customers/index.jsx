@@ -1,6 +1,7 @@
 import { Component, React } from "react";
 import axios from "axios";
 import CustomerModal from "../../components/customer/modal";
+import DeleteCustomerModal from "../../components/customer/delete";
 
 class CustomerIndex extends Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class CustomerIndex extends Component {
             customers: [],
             isLoading: true,
             isModalOpen: false,
+            isDeleteModalOpen: false,
             idSelected: null,
         };
     }
@@ -49,6 +51,14 @@ class CustomerIndex extends Component {
     closeModal = () => {
         this.setState(() => ({
             isModalOpen: false,
+            isDeleteModalOpen: false,
+        }));
+    };
+
+    deleteCustomer = (id) => {
+        this.setState((prevState) => ({
+            isDeleteModalOpen: !prevState.isDeleteModalOpen,
+            idSelected: id,
         }));
     };
 
@@ -98,8 +108,8 @@ class CustomerIndex extends Component {
                     </div>
 
                     <div className="my-1">
-                        <a
-                            href="#"
+                        <button
+                            onClick={() => this.deleteCustomer(customer.id)}
                             className="inline-flex items-center gap-x-1.5 rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
                         >
                             <svg
@@ -132,7 +142,7 @@ class CustomerIndex extends Component {
                                     </g>
                                 </g>
                             </svg>
-                        </a>
+                        </button>
                     </div>
                 </td>
             </tr>
@@ -222,6 +232,12 @@ class CustomerIndex extends Component {
                                 <CustomerModal
                                     idSelected={this.state.idSelected}
                                     isOpen={this.state.isModalOpen}
+                                    onClose={() => this.closeModal()}
+                                />
+
+                                <DeleteCustomerModal
+                                    idSelected={this.state.idSelected}
+                                    isOpen={this.state.isDeleteModalOpen}
                                     onClose={() => this.closeModal()}
                                 />
 
