@@ -18,6 +18,9 @@ gnome-terminal -- bash -c "yarn dev"
 # xterm -e "yarn dev"
 # konsole -e "yarn dev"
 
+# echo "Running migration..."
+# docker-compose exec app php artisan migrate
+
 # Open browser tab with localhost:8000
-echo "Opening browser at localhost:8000..."
-xdg-open http://localhost:8000
+# echo "Opening browser at localhost:8000..."
+# xdg-open http://localhost:8000

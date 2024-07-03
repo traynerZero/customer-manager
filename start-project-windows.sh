@@ -18,6 +18,9 @@ else
   echo "Unable to open new terminal window. Please manually run 'yarn dev' in a new terminal window."
 fi
 
+# echo "Running migration..."
+# docker-compose exec app php artisan migrate
+
 # Open browser tab with localhost:8000
-echo "Opening browser at localhost:8000..."
-start http://localhost:8000
+# echo "Opening browser at localhost:8000..."
+# start http://localhost:8000
