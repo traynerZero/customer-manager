@@ -22,12 +22,23 @@ class CustomerRequest extends FormRequest
     
     public function rules()
     {
-        return [
+        $rules = [
             'firstname' => ['required', 'string'],
             'lastname' => ['required', 'string'],
             'email' => ['required', 'email'],
             'contactno' => ['required', 'string'],
         ];
+
+        if ($this->isMethod('put') || $this->isMethod('patch')) {
+            $rules = [
+                'firstname' => ['sometimes', 'string'],
+                'lastname' => ['sometimes', 'string'],
+                'email' => ['sometimes', 'email'],
+                'contactno' => ['sometimes', 'string'],
+            ];
+        }
+
+        return $rules;
     }
     
 }
